@@ -14,8 +14,19 @@ end
 
 Vagrant::Config.run do |config|
    config.vm.provision :shell, :path => "priv/puppetmodule.sh"
-   config.vm.provision :shell, :path => "priv/oldubuntu.sh"
-   config.vm.forward_port 80, 5432, :name => "http", :auto => true
+
+   config.vm.define :lucid do |lucid|
+      lucid.vm.provision :shell, :path => "priv/oldubuntu.sh"
+      lucid.vm.host_name = "drupal-lucid"
+      lucid.vm.box = "lucid32"
+      lucid.vm.box_url = "http://files.vagrantup.com/lucid32.box"
+   end
+
+   config.vm.define :precise do |precise|
+      precise.vm.host_name = "drupal-precise"
+      precise.vm.box = "precise32"
+      precise.vm.box_url = "http://files.vagrantup.com/precise32.box"
+   end
 
    config.vm.provision :puppet do |puppet|
       puppet.options = ["--templatedir",
@@ -24,12 +35,7 @@ Vagrant::Config.run do |config|
          "vagrant"]
    end
 
-   config.vm.define :lucid do |lucid|
-      lucid.vm.host_name = "drupal-lucid"
-      lucid.vm.box = "lucid32"
-      lucid.vm.box_url = "http://files.vagrantup.com/lucid32.box"
-   end
-
+   config.vm.forward_port 80, 5432, :name => "http", :auto => true
    config.vm.share_folder("vagrant-root", "/vagrant", ".",
          :extra => "dmode=775")
 end
