@@ -24,10 +24,10 @@ Vagrant::Config.run do |config|
          "vagrant"]
    end
 
-   config.vm.define :myproject do |myproject|
-      myproject.vm.host_name = "myproject"
-      myproject.vm.box = "lucid32"
-      myproject.vm.box_url = "http://files.vagrantup.com/lucid32.box"
+   config.vm.define :lucid do |lucid|
+      lucid.vm.host_name = "drupal-lucid"
+      lucid.vm.box = "lucid32"
+      lucid.vm.box_url = "http://files.vagrantup.com/lucid32.box"
    end
 
    config.vm.share_folder("vagrant-root", "/vagrant", ".",
