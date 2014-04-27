@@ -30,7 +30,7 @@ Vagrant::Config.run do |config|
       myproject.vm.box_url = "http://files.vagrantup.com/lucid32.box"
    end
 
-   config.vm.share_folder("v-root", "/vagrant", ".",
+   config.vm.share_folder("vagrant-root", "/vagrant", ".",
          :extra => "dmode=775")
 end
 
