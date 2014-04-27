@@ -1,0 +1,43 @@
+<%#
+# Copyright 2014 Wesley Tanaka <http://wtanaka.com/>
+#
+# This file is part of drupal-vagrant-puppet
+# <http://wtanaka.com/drupal/vagrant-puppet>
+#
+# drupal-vagrant-puppet is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# drupal-vagrant-puppet is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+%>
+<VirtualHost *:80>
+  DocumentRoot <%= @path_to_project %>/pub
+  ServerName <%= @server_name %>
+  ServerAlias <%= @project_name %>.com
+  ServerAlias *.<%= @project_name %>.com
+  ServerAlias <%= @project_name %>
+  ServerAlias *.<%= @project_name %>
+  ServerAlias localhost
+</VirtualHost>
+
+<Directory "<%= @path_to_project %>/pub">
+  Options All
+  AllowOverride All
+  # Needed for newer apache versions
+  # Require all granted
+</Directory>
+
+<Directory "/vagrant/pub">
+  Options All
+  AllowOverride All
+  # Needed for newer apache versions
+  # Require all granted
+</Directory>
+
