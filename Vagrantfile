@@ -44,7 +44,9 @@ Vagrant::Config.run do |config|
    end
 
    config.vm.forward_port 80, 5432, :name => "http", :auto => true
-   config.vm.share_folder("vagrant-root", "/vagrant", ".",
-         :extra => "dmode=775")
+   # Using "v-root" instead of "vagrant-root" causes a warning in
+   # Vagrant 1.1, but is necessary for correct functioning of Vagrant
+   # 1.0.x
+   config.vm.share_folder("v-root", "/vagrant", ".", :extra => "dmode=775")
 end
 
