@@ -26,6 +26,18 @@ $path_to_project_parents = all_parents($path_to_project)
 $path_to_settings_file = "/vagrant/pub/sites/localhost/settings.php"
 $settings_directories = all_parents($path_to_settings_file)
 
+case $operatingsystem {
+   Ubuntu: {
+      if versioncmp($operatingsystemrelease, '12.04') > 0 {
+         $apache_version = '2.4'
+      }
+      else {
+         $apache_version = '2.2'
+      }
+   }
+   default: { $apache_version = '2.2' }
+}
+
 exec { 'apt-update':
    command => '/usr/bin/apt-get update'
 }

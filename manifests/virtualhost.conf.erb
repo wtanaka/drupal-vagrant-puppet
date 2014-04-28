@@ -30,14 +30,18 @@
 <Directory "<%= @path_to_project %>/pub">
   Options All
   AllowOverride All
-  # Needed for newer apache versions
-  # Require all granted
+  <% if Puppet::Util::Package.versioncmp(@apache_version, '2.4') >= 0 %>
+    # Needed for apache versions >= 2.4
+    Require all granted
+  <% end %>
 </Directory>
 
 <Directory "/vagrant/pub">
   Options All
   AllowOverride All
-  # Needed for newer apache versions
-  # Require all granted
+  <% if Puppet::Util::Package.versioncmp(@apache_version, '2.4') >= 0 %>
+    # Needed for apache versions >= 2.4
+    Require all granted
+  <% end %>
 </Directory>
 

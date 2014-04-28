@@ -24,4 +24,4 @@ mkdir -p /etc/puppet/modules
 (puppet module list | grep jamtur01-puppet-apache-modules) ||
    puppet module install -v 0.0.1 jamtur01-apachemodules
 (puppet module list | grep wtanaka-mkdir) ||
-   puppet module install -v 0.0.1 wtanaka-mkdir
+   puppet module install -v 0.0.2 wtanaka-mkdir

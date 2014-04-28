@@ -28,6 +28,14 @@ Vagrant::Config.run do |config|
       precise.vm.box_url = "http://files.vagrantup.com/precise32.box"
    end
 
+   config.vm.define :trusty do |trusty|
+      trusty.vm.host_name = "drupal-trusty"
+      trusty.vm.box = "trusty32"
+      trusty.vm.box_url =\
+        "http://cloud-images.ubuntu.com/vagrant/trusty/"\
+        "current/trusty-server-cloudimg-i386-vagrant-disk1.box"
+   end
+
    config.vm.provision :puppet do |puppet|
       puppet.options = ["--templatedir",
          "/tmp/vagrant-puppet/manifests",
