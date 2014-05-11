@@ -21,6 +21,16 @@
 #
 $project_name = 'myproject'
 $path_to_project = "/path/to/${project_name}"
+
+case $::drupal_version {
+   '': {
+      $drupal_ver = 7
+      notice("drupal_version fact was missing, assuming ${drupal_version}")
+   }
+   7: { $drupal_ver = 7 }
+   6: { $drupal_ver = 6 }
+   default: { notice("Unknown drupal_version ${drupal_version}") }
+}
 $path_to_project_parents = all_parents($path_to_project)
 # Vagrant-specific variables
 $path_to_settings_file = "/vagrant/pub/sites/localhost/settings.php"
@@ -69,9 +79,12 @@ case $environment {
          ensure => 'directory',
          mode => 775,
       }
-      file { $path_to_settings_file:
-         ensure => 'present',
-         content => template('localhost-settings.php.erb'),
+
+      if $drupal_ver == 6 {
+         file { $path_to_settings_file:
+            ensure => 'present',
+            content => template('localhost-settings.php.erb'),
+         }
       }
 
       user { 'www-data':

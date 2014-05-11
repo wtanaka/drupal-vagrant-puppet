@@ -12,6 +12,13 @@ if Vagrant::VERSION.start_with?('1.0.')
    end
 end
 
+drupal_ver = ENV['DRUPAL'].to_i
+if !([6, 7].include?(drupal_ver))
+   $stderr.puts "Neither DRUPAL=6 nor DRUPAL=7 was set in environment.  "\
+      "Assuming Drupal 7."
+   drupal_ver = 7
+end
+
 Vagrant::Config.run do |config|
    config.vm.provision :shell, :path => "priv/puppetmodule.sh"
 
@@ -41,6 +48,9 @@ Vagrant::Config.run do |config|
          "/tmp/vagrant-puppet/manifests",
          "--environment",
          "vagrant"]
+      puppet.facter = {
+         'drupal_version' => drupal_ver
+      }
    end
 
    config.vm.forward_port 80, 5432, :name => "http", :auto => true
